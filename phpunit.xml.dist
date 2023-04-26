@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+    convertDeprecationsToExceptions="true"
+    beStrictAboutOutputDuringTests="true"
+    bootstrap="vendor/autoload.php"
+    failOnWarning="true"
+    failOnRisky="true"
+    verbose="true"
+    colors="true">
+  <coverage processUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+  </coverage>
+  <testsuites>
+    <testsuite name="Yii2 PSR Logger Test Suite">
+      <directory>./tests</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>

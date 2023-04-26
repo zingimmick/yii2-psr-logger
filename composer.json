@@ -1,0 +1,78 @@
+{
+    "name": "zing/yii2-psr-logger",
+    "description": "A PSR LoggerInterface implementation that routes to the Yii logger",
+    "keywords": ["yii2", "psr", "logger"],
+    "license": "MIT",
+    "homepage": "https://github.com/zingimmick/yii2-psr-logger",
+    "support": {
+        "issues": "https://github.com/zingimmick/yii2-psr-logger/issues",
+        "source": "https://github.com/zingimmick/yii2-psr-logger"
+    },
+    "authors": [
+        {
+            "name": "zingimmick",
+            "email": "zingimmick@outlook.com",
+            "homepage": "https://github.com/zingimmick"
+        }
+    ],
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "yiisoft/yii2-composer": true
+        }
+    },
+    "require": {
+        "php": "^7.3 || ^8.0",
+        "psr/log": "^1.0 || ^2.0 || ^3.0",
+        "yiisoft/yii2": "~2.0.13"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.0",
+        "phpstan/phpstan-mockery": "^1.0",
+        "phpunit/phpunit": "^9.3.3",
+        "zing/coding-standard": "^6.4 || ^7.0"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Zing\\YiiPsrLogger\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Zing\\YiiPsrLogger\\Tests\\": "tests"
+        },
+        "classmap": [
+            "vendor/yiisoft/yii2/Yii.php"
+        ]
+    },
+    "scripts": {
+        "lint:rector": "@fix:rector --dry-run",
+        "lint:ecs": "ecs check --ansi",
+        "lint:phpstan": "phpstan analyse --ansi",
+        "fix:rector": "rector process --ansi",
+        "fix:ecs": "@lint:ecs --fix",
+        "test:phpunit": "phpunit --colors=always",
+        "lint": [
+            "@lint:rector",
+            "@lint:ecs",
+            "@lint:phpstan"
+        ],
+        "fix": [
+            "@fix:rector",
+            "@fix:ecs"
+        ],
+        "test": [
+            "@test:phpunit"
+        ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

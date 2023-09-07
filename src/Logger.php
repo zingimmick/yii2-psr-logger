@@ -40,6 +40,11 @@ class Logger extends AbstractLogger
         $this->category = $category;
     }
 
+    /**
+     * @param mixed $level
+     * @param mixed $message
+     * @param array<mixed> $context
+     */
     public function log($level, $message, array $context = []): void
     {
         if (! \is_string($level)) {

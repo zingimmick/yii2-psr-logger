@@ -7,37 +7,31 @@ namespace Zing\YiiPsrLogger;
 use Psr\Log\AbstractLogger;
 use Psr\Log\LogLevel;
 use yii\helpers\Json;
+use yii\log\Logger as YiiLogger;
 
 class Logger extends AbstractLogger
 {
-    /**
-     * @var \yii\log\Logger
-     */
-    private $logger;
-
-    /**
-     * @var string
-     */
-    private $category;
+    private YiiLogger $yiiLogger;
 
     /**
      * @var array<string, int>
      */
-    private $formatLevelMap = [
-        LogLevel::EMERGENCY => \yii\log\Logger::LEVEL_ERROR,
-        LogLevel::ALERT => \yii\log\Logger::LEVEL_ERROR,
-        LogLevel::CRITICAL => \yii\log\Logger::LEVEL_ERROR,
-        LogLevel::ERROR => \yii\log\Logger::LEVEL_ERROR,
-        LogLevel::WARNING => \yii\log\Logger::LEVEL_WARNING,
-        LogLevel::NOTICE => \yii\log\Logger::LEVEL_WARNING,
-        LogLevel::INFO => \yii\log\Logger::LEVEL_INFO,
-        LogLevel::DEBUG => \yii\log\Logger::LEVEL_INFO,
+    private array $formatLevelMap = [
+        LogLevel::EMERGENCY => YiiLogger::LEVEL_ERROR,
+        LogLevel::ALERT => YiiLogger::LEVEL_ERROR,
+        LogLevel::CRITICAL => YiiLogger::LEVEL_ERROR,
+        LogLevel::ERROR => YiiLogger::LEVEL_ERROR,
+        LogLevel::WARNING => YiiLogger::LEVEL_WARNING,
+        LogLevel::NOTICE => YiiLogger::LEVEL_WARNING,
+        LogLevel::INFO => YiiLogger::LEVEL_INFO,
+        LogLevel::DEBUG => YiiLogger::LEVEL_INFO,
     ];
 
-    public function __construct(?\yii\log\Logger $logger = null, string $category = 'application')
-    {
-        $this->logger = $logger ?? \Yii::getLogger();
-        $this->category = $category;
+    public function __construct(
+        ?YiiLogger $yiiLogger = null,
+        private string $category = 'application'
+    ) {
+        $this->yiiLogger = $yiiLogger ?? \Yii::getLogger();
     }
 
     /**
@@ -55,7 +49,7 @@ class Logger extends AbstractLogger
             throw new \InvalidArgumentException(sprintf('Unknown logging level %s', $level));
         }
 
-        $this->logger->log(
+        $this->yiiLogger->log(
             $message . ' ' . Json::encode($context),
             $this->formatLevelMap[$level],
             $this->category

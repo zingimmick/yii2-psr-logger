@@ -5,32 +5,22 @@ declare(strict_types=1);
 namespace Zing\YiiPsrLogger;
 
 use Psr\Log\AbstractLogger;
+use yii\log\Logger as YiiLogger;
 
 class DynamicLogger extends AbstractLogger
 {
-    /**
-     * @var \Zing\YiiPsrLogger\Logger|null
-     */
-    private $logger;
+    private ?Logger $logger = null;
 
-    /**
-     * @var \yii\log\Logger|null
-     */
-    private $yiiLogger;
+    private ?YiiLogger $yiiLogger = null;
 
-    /**
-     * @var string
-     */
-    private $category;
-
-    public function __construct(string $category = 'application')
-    {
-        $this->category = $category;
+    public function __construct(
+        private string $category = 'application'
+    ) {
     }
 
     private function getLogger(): Logger
     {
-        if (! ($this->logger !== null && $this->yiiLogger !== null) || \Yii::getLogger() !== $this->yiiLogger) {
+        if (! ($this->logger instanceof Logger && $this->yiiLogger instanceof YiiLogger) || \Yii::getLogger() !== $this->yiiLogger) {
             $this->yiiLogger = \Yii::getLogger();
             $this->logger = new Logger(\Yii::getLogger(), $this->category);
         }

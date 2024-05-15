@@ -21,6 +21,10 @@ class DynamicLogger extends AbstractLogger
     ) {
     }
 
+    /**
+     * Get current Yii Logger.
+     * @return Logger
+     */
     private function getLogger(): Logger
     {
         if (! ($this->logger instanceof Logger && $this->yiiLogger instanceof YiiLogger) || \Yii::getLogger() !== $this->yiiLogger) {

@@ -7,6 +7,9 @@ namespace Zing\YiiPsrLogger;
 use Psr\Log\AbstractLogger;
 use yii\log\Logger as YiiLogger;
 
+/**
+ * Implements a PSR logger that routes messages to the current Yii Logger.
+ */
 class DynamicLogger extends AbstractLogger
 {
     private ?Logger $logger = null;
@@ -18,6 +21,10 @@ class DynamicLogger extends AbstractLogger
     ) {
     }
 
+    /**
+     * Get current Yii Logger.
+     * @return Logger
+     */
     private function getLogger(): Logger
     {
         if (! ($this->logger instanceof Logger && $this->yiiLogger instanceof YiiLogger) || \Yii::getLogger() !== $this->yiiLogger) {

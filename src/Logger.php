@@ -9,6 +9,9 @@ use Psr\Log\LogLevel;
 use yii\helpers\Json;
 use yii\log\Logger as YiiLogger;
 
+/**
+ * Implements a PSR logger that routes messages to the Yii Logger.
+ */
 class Logger extends AbstractLogger
 {
     private YiiLogger $yiiLogger;

@@ -23,7 +23,6 @@ class DynamicLogger extends AbstractLogger
 
     /**
      * Get current Yii Logger.
-     * @return Logger
      */
     private function getLogger(): Logger
     {

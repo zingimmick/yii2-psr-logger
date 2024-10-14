@@ -6,3 +6,8 @@ parameters:
     paths:
         - src
         - tests
+    excludePaths:
+        - src/DynamicLogger.php
+        - src/Logger.php
+    ignoreErrors:
+        - '#Call to an undefined method Zing\\YiiPsrLogger\\Tests\\LoggerTest::setExpectedException\(\).#'

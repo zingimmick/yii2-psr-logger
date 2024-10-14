@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Zing\YiiPsrLogger\Tests;
 
 use Psr\Log\LogLevel;
@@ -13,33 +11,55 @@ use Zing\YiiPsrLogger\Logger;
  */
 final class LoggerTest extends TestCase
 {
-    public function testLogLevelMap(): void
+    /**
+     * @phpstan-return void
+     */
+    public function testLogLevelMap()
     {
-        $mock = $this->getMockBuilder(YiiLogger::class)->getMock();
-        $mock->expects($this->once())
+        $mockObject = $this->getMockBuilder('yii\log\Logger')
+            ->getMock();
+        $mockObject->expects($this->once())
             ->method('log')
             ->with('test []', YiiLogger::LEVEL_ERROR);
 
-        $logger = new Logger($mock);
+        $logger = new Logger($mockObject);
 
         $logger->log(LogLevel::CRITICAL, 'test');
     }
 
-    public function testInvalidLogLevel(): void
+    /**
+     * @phpstan-return void
+     */
+    public function testInvalidLogLevel()
     {
-        $mock = $this->getMockBuilder(YiiLogger::class)->getMock();
-        $logger = new Logger($mock);
+        $mockObject = $this->getMockBuilder('yii\log\Logger')
+            ->getMock();
+        $logger = new Logger($mockObject);
 
-        $this->expectException(\InvalidArgumentException::class);
+        if (method_exists($this, 'expectException')) {
+            $this->expectException('InvalidArgumentException');
+        } else {
+            $this->setExpectedException('InvalidArgumentException');
+        }
+
         $logger->log('badlevel', 'test');
     }
 
-    public function testNonStringLogLevel(): void
+    /**
+     * @phpstan-return void
+     */
+    public function testNonStringLogLevel()
     {
-        $mock = $this->getMockBuilder(YiiLogger::class)->getMock();
-        $logger = new Logger($mock);
+        $mockObject = $this->getMockBuilder('yii\log\Logger')
+            ->getMock();
+        $logger = new Logger($mockObject);
 
-        $this->expectException(\InvalidArgumentException::class);
+        if (method_exists($this, 'expectException')) {
+            $this->expectException('InvalidArgumentException');
+        } else {
+            $this->setExpectedException('InvalidArgumentException');
+        }
+
         $logger->log(15, 'test');
     }
 }

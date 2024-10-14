@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Zing\YiiPsrLogger;
 
 use Psr\Log\AbstractLogger;
@@ -34,9 +32,12 @@ class Logger extends AbstractLogger
         LogLevel::DEBUG => \yii\log\Logger::LEVEL_INFO,
     ];
 
-    public function __construct(?\yii\log\Logger $logger = null, string $category = 'application')
+    /**
+     * @param string $category
+     */
+    public function __construct(\yii\log\Logger $logger = null, $category = 'application')
     {
-        $this->logger = $logger ?? \Yii::getLogger();
+        $this->logger = isset($logger) ? $logger : \Yii::getLogger();
         $this->category = $category;
     }
 
@@ -44,15 +45,17 @@ class Logger extends AbstractLogger
      * @param mixed $level
      * @param mixed $message
      * @param array<mixed> $context
+     *
+     * @phpstan-return void
      */
-    public function log($level, $message, array $context = []): void
+    public function log($level, $message, array $context = [])
     {
         if (! \is_string($level)) {
             throw new \InvalidArgumentException('This logger only supports string levels');
         }
 
         if (! isset($this->formatLevelMap[$level])) {
-            throw new \InvalidArgumentException(sprintf('Unknown logging level %s', $level));
+            throw new \InvalidArgumentException(\sprintf('Unknown logging level %s', $level));
         }
 
         $this->logger->log(

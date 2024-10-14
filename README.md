@@ -7,7 +7,7 @@
 [![Latest Unstable Version](https://poser.pugx.org/zing/yii2-psr-logger/v/unstable.svg)](https://packagist.org/packages/zing/yii2-psr-logger)
 [![License](https://poser.pugx.org/zing/yii2-psr-logger/license)](https://packagist.org/packages/zing/yii2-psr-logger)
 
-> **Requires [PHP 7.3.0+](https://php.net/releases/)**
+> **Requires [PHP 5.4.0+](https://php.net/releases/)**
 
 Require Yii2 PSR Logger using [Composer](https://getcomposer.org):
 

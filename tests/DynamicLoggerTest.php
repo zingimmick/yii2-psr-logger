@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Zing\YiiPsrLogger\Tests;
 
 use yii\log\Logger as YiiLogger;
@@ -12,24 +10,29 @@ use Zing\YiiPsrLogger\DynamicLogger;
  */
 final class DynamicLoggerTest extends TestCase
 {
-    public function testLoggerUsesCurrent(): void
+    /**
+     * @phpstan-return void
+     */
+    public function testLoggerUsesCurrent()
     {
-        $mock = $this->getMockBuilder(YiiLogger::class)->getMock();
-        $mock->expects($this->once())
+        $mockObject = $this->getMockBuilder('yii\log\Logger')
+            ->getMock();
+        $mockObject->expects($this->once())
             ->method('log')
             ->with('test1 []', YiiLogger::LEVEL_INFO);
 
-        $yiiLogger2 = $this->getMockBuilder(YiiLogger::class)->getMock();
-        $yiiLogger2->expects($this->once())
+        $mockObject2 = $this->getMockBuilder('yii\log\Logger')
+            ->getMock();
+        $mockObject2->expects($this->once())
             ->method('log')
             ->with('test2 []', YiiLogger::LEVEL_INFO);
 
         $dynamicLogger = new DynamicLogger();
-        \Yii::setLogger($mock);
+        \Yii::setLogger($mockObject);
 
         $dynamicLogger->info('test1');
 
-        \Yii::setLogger($yiiLogger2);
+        \Yii::setLogger($mockObject2);
         $dynamicLogger->info('test2');
     }
 }

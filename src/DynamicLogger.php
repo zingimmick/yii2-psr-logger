@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Zing\YiiPsrLogger;
 
 use Psr\Log\AbstractLogger;
@@ -23,12 +21,18 @@ class DynamicLogger extends AbstractLogger
      */
     private $category;
 
-    public function __construct(string $category = 'application')
+    /**
+     * @param string $category
+     */
+    public function __construct($category = 'application')
     {
         $this->category = $category;
     }
 
-    private function getLogger(): Logger
+    /**
+     * @return \Zing\YiiPsrLogger\Logger
+     */
+    private function getLogger()
     {
         if (! ($this->logger !== null && $this->yiiLogger !== null) || \Yii::getLogger() !== $this->yiiLogger) {
             $this->yiiLogger = \Yii::getLogger();
@@ -42,8 +46,10 @@ class DynamicLogger extends AbstractLogger
      * @param string $level
      * @param \Stringable|string $message
      * @param array<mixed> $context
+     *
+     * @phpstan-return void
      */
-    public function log($level, $message, array $context = []): void
+    public function log($level, $message, array $context = [])
     {
         $this->getLogger()
             ->log($level, $message, $context);

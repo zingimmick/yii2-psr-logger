@@ -38,8 +38,8 @@ class Logger extends AbstractLogger
     }
 
     /**
-     * @param string $level
-     * @param string $message
+     * @param mixed $level
+     * @param string|Stringable $message
      * @param array<mixed> $context
      */
     public function log($level, $message, array $context = []): void

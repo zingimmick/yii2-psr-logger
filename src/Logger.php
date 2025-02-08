@@ -39,7 +39,7 @@ class Logger extends AbstractLogger
 
     /**
      * @param mixed $level
-     * @param string|Stringable $message
+     * @param string|\Zing\YiiPsrLogger\Stringable $message
      * @param array<mixed> $context
      */
     public function log($level, $message, array $context = []): void

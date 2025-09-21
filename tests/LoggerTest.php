@@ -13,9 +13,9 @@ use Zing\YiiPsrLogger\Logger;
  */
 final class LoggerTest extends TestCase
 {
-    public function testLogLevelMap(): void 
+    public function testLogLevelMap(): void
     {
-        $mock = $this->getMockBuilder(YiiLogger::class)->getMock();
+        $mock = $this->createMock(YiiLogger::class);
         $mock->expects($this->once())
             ->method('log')
             ->with('test []', YiiLogger::LEVEL_ERROR);
@@ -27,7 +27,7 @@ final class LoggerTest extends TestCase
 
     public function testInvalidLogLevel(): void
     {
-        $mock = $this->getMockBuilder(YiiLogger::class)->getMock();
+        $mock = $this->createMock(YiiLogger::class);
         $logger = new Logger($mock);
 
         $this->expectException(\InvalidArgumentException::class);
@@ -36,7 +36,7 @@ final class LoggerTest extends TestCase
 
     public function testNonStringLogLevel(): void
     {
-        $mock = $this->getMockBuilder(YiiLogger::class)->getMock();
+        $mock = $this->createMock(YiiLogger::class);
         $logger = new Logger($mock);
 
         $this->expectException(\InvalidArgumentException::class);

@@ -27,7 +27,7 @@ final class LoggerTest extends TestCase
 
     public function testInvalidLogLevel(): void
     {
-        $mock = $this->createMock(YiiLogger::class);
+        $mock = $this->createStub(YiiLogger::class);
         $logger = new Logger($mock);
 
         $this->expectException(\InvalidArgumentException::class);
@@ -36,7 +36,7 @@ final class LoggerTest extends TestCase
 
     public function testNonStringLogLevel(): void
     {
-        $mock = $this->createMock(YiiLogger::class);
+        $mock = $this->createStub(YiiLogger::class);
         $logger = new Logger($mock);
 
         $this->expectException(\InvalidArgumentException::class);

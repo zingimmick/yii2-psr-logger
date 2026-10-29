@@ -26,7 +26,7 @@ class DynamicLogger extends AbstractLogger
      */
     private function getLogger(): Logger
     {
-        if (! ($this->logger instanceof Logger && $this->yiiLogger instanceof YiiLogger) || \Yii::getLogger() !== $this->yiiLogger) {
+        if (! $this->logger instanceof Logger || ! $this->yiiLogger instanceof YiiLogger || \Yii::getLogger() !== $this->yiiLogger) {
             $this->yiiLogger = \Yii::getLogger();
             $this->logger = new Logger(\Yii::getLogger(), $this->category);
         }
